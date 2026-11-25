@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Local Tab Video Recorder",
+  "version": "1.1.0",
+  "description": "Record active Chrome tab audio and video to WebM with adaptive bitrate and local chunk storage.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "tabCapture",
+    "offscreen",
+    "downloads"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Local Tab Recorder",
+    "default_popup": "popup.html"
+  }
+}

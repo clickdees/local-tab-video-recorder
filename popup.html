@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Tab Recorder</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand-mark" aria-hidden="true">
+        <span></span>
+      </div>
+      <div>
+        <h1>Tab Recorder</h1>
+        <p class="subtitle">Capture this tab as WebM</p>
+      </div>
+    </header>
+
+    <section class="warning" role="alert" aria-live="polite">
+      <div class="warning-title">
+        <span class="warning-icon" aria-hidden="true">!</span>
+        <strong>Memory warning</strong>
+      </div>
+      <p>Warning: Keep recordings relatively short (under 30–45 minutes). Very long recordings can still stress browser storage, the video encoder, and system resources, and may cause recording failures or browser instability.</p>
+    </section>
+
+    <section class="recorder-panel" aria-label="Recording controls">
+      <div class="status-row">
+        <span id="statusDot" class="status-dot" aria-hidden="true"></span>
+        <span id="statusText" class="status-text">Ready</span>
+      </div>
+
+      <div id="timer" class="timer" role="timer" aria-live="off">00:00</div>
+      <p class="timer-caption">Recording time</p>
+      <p id="captureDetails" class="capture-details" aria-live="polite">Capture size: detected when recording starts</p>
+
+      <div class="actions">
+        <button id="startButton" class="button button-start" type="button">
+          <span class="button-icon" aria-hidden="true">●</span>
+          Start Recording
+        </button>
+        <button id="stopButton" class="button button-stop" type="button" disabled>
+          <span class="button-icon" aria-hidden="true">■</span>
+          Stop &amp; Save
+        </button>
+      </div>
+      <p id="detailText" class="detail-text" aria-live="polite">Start recording the currently active tab.</p>
+    </section>
+
+    <footer class="footer">
+      <span>Saved locally to your Downloads folder</span>
+      <span class="format-tag">WEBM · VP8 / OPUS</span>
+    </footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
