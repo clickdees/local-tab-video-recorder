@@ -154,6 +154,20 @@ stopButton.addEventListener("click", async () => {
   }
 });
 
+async function refreshShortcutHint() {
+  const hint = document.getElementById("shortcutHint");
+  if (!hint) return;
+  try {
+    const commands = await chrome.commands.getAll();
+    const toggle = commands.find((command) => command.name === "toggle-recording");
+    hint.textContent = toggle?.shortcut
+      ? `Shortcut: ${toggle.shortcut} starts/stops recording without resizing the tab.`
+      : "Set a shortcut at chrome://extensions/shortcuts to start/stop without resizing the tab.";
+  } catch (error) {
+    hint.textContent = "";
+  }
+}
+
 chrome.runtime.onMessage.addListener((message) => {
   if (message?.target !== "popup" || message.type !== "STATUS_UPDATE") return;
 
@@ -165,3 +179,4 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 refreshFromBackground();
+refreshShortcutHint();

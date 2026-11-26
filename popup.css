@@ -234,6 +234,14 @@ h1 {
   line-height: 1.45;
 }
 
+.shortcut-hint {
+  min-height: 14px;
+  margin: 8px 0 0;
+  color: #63718a;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;

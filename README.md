@@ -21,9 +21,9 @@ A personal, local Chrome extension that records audio and video from the current
 
 1. Open the tab you are allowed to record (for example, a video you are watching).
 2. Click the Local Tab Recorder toolbar icon.
-3. Click **Start Recording**. Recording continues if you close the popup.
-4. Reopen the extension popup to view the elapsed time and reported capture dimensions.
-5. Click **Stop & Save** when finished.
+3. Click **Start Recording**, or press **Alt+Shift+R** (Chrome-only toggle, remappable at `chrome://extensions/shortcuts`). The shortcut avoids opening/closing the popup so the tab size stays stable in the recording.
+4. Reopen the extension popup to view the elapsed time and reported capture dimensions. A red `REC` badge also shows while recording.
+5. Click **Stop & Save**, or press **Alt+Shift+R** again, when finished.
 6. Find `tab-capture-YYYY-MM-DD-HHMM.webm` in your Downloads folder.
 
 ## Resolution and bitrate behavior

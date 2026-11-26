@@ -138,6 +138,16 @@ async function closeOffscreenDocument() {
   }
 }
 
+function updateActionBadge(status) {
+  if (!chrome.action?.setBadgeText) return;
+  if (status === "recording" || status === "starting") {
+    chrome.action.setBadgeText({ text: "REC" }).catch(() => {});
+    chrome.action.setBadgeBackgroundColor({ color: "#c5221f" }).catch(() => {});
+  } else {
+    chrome.action.setBadgeText({ text: "" }).catch(() => {});
+  }
+}
+
 function broadcastStatus(message) {
   chrome.runtime.sendMessage({
     target: "popup",
@@ -190,6 +200,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === "RECORDING_STATUS" && sender.url === OFFSCREEN_URL) {
+    updateActionBadge(message.status);
     broadcastStatus(message);
     return;
   }
@@ -200,6 +211,27 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return;
   }
+});
+
+// Alt+Shift+R (remappable at chrome://extensions/shortcuts) toggles recording
+// without opening the popup, so the tab size stays stable in the capture.
+chrome.commands.onCommand.addListener((command) => {
+  if (command !== "toggle-recording") return;
+
+  (async () => {
+    const current = await getRecordingStatus();
+    if (["starting", "stopping", "saving"].includes(current.status)) return;
+
+    if (current.status === "recording") {
+      await stopRecording();
+    } else {
+      await startRecording();
+    }
+    const next = await getRecordingStatus();
+    updateActionBadge(next.status);
+  })().catch((error) => {
+    console.error("Toggle recording command failed:", error);
+  });
 });
 
 // Keep the offscreen page alive until Chrome has finished reading its Blob URL.
